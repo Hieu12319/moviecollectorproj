@@ -1,16 +1,24 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-/>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <title>Movie Collector</title>
 </head>
 <body>
-    <h2>HelloWorld</h2>
+    <h2> Log in please</h2>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" class="btn" value="login">
+      <input type="hidden" name="next" value="{{ next }}">
+    </form>
+    
+   
 </body>
 </html>
