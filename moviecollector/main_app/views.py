@@ -6,6 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import RatingsForm
+from django.views.generic import ListView, DetailView
 
 from .models import Movie, Ratings, Photo
 import uuid
@@ -33,6 +34,19 @@ def movies_detail(request, movies_id):
     ratings_form = RatingsForm()
     return render(request, 'movies/detail.html', {'movies': movie, 'ratings_form': RatingsForm})
     
+def add_ratings(request, movies_id):
+    form = RatingsForm(request.POST)
+    if form.is_valid():
+        new_ratings = form.save(commit=False)
+        new_ratings.movies_id = movies_id
+        new_ratings.save()
+    return redirect('detail', movies_id= movies_id)
+
+def assoc_ratings(request, movies_id, ratings_id):
+    Movie.objects.get(id=movies_id).ratings.add(ratings_id)
+    return redirect('detail', movies_id=movies_id)
+
+
 @login_required
 def add_photo(request, movies_id):
     photo_file = request.FILES.get('photo-file', None)
@@ -67,6 +81,23 @@ class MovieDelete(DeleteView):
     model = Movie
     success_url = '/movies/'
 
+class RatingsList(ListView):
+    model = Ratings
+
+class RatingsDetail(DetailView):
+    model = Ratings
+
+class RatingsCreate(CreateView):
+    model = Ratings
+    fields = '__all__'
+
+class RatingsUpdate(UpdateView):
+    model = Ratings
+    fields = ['thoughts', 'rate']
+
+class RatingsDelete(DeleteView):
+    model = Ratings
+    success_url = '/ratings/'
 
 
 
