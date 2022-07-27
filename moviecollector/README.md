@@ -9,7 +9,7 @@
 | Developers | Hieu Nguyen |
 | Live site | [MovieCollectorsApp](https://moviecollectorsapp.herokuapp.com/) |
 | Repo | [GitHubLink](https://github.com/Hieu12319/moviecollectorproj) |
-
+|Trello | [TrelloSite](https://trello.com/b/si2ckNqh/movie-collector-app)
 
 
 ## Things I want to improve
