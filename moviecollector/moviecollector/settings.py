@@ -135,3 +135,7 @@ LOGOUT_REDIRECT_URL = '/about/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#django app for heroku
+import django_on_heroku
+dango_on_heroku.settings(locals())
