@@ -35,8 +35,8 @@ def movies_index(request):
     return render(request, 'movies/index.html', {'Movie': movies})
 
 
-def movies_detail(request, movie_id):
-    movie = Movie.objects.get(id=movie_id)
+def movies_detail(request, movies_id):
+    movie = Movie.objects.get(id=movies_id)
     return render(request, 'movies/detail.html', {'movies': movie})
 
 
