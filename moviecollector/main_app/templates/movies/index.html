@@ -3,14 +3,14 @@
 
 <h1>Movie List</h1>
 
-{% for Movie in movies %} 
+{% for movies in Movie %} 
     <div class="card">
-        <a href ="/movies/{{movies.id}}">
+        <a href ="{% url 'detail' movies.id %}">
         <div class="card-content"> 
-            <span class="card-title">{{ Movie.title }}</span>
-            <p>Year: {{ Movie.year }}</p>
-            <p>Actors: {{ Movie.actors }}</p>
-            <p>Genre: {{ Movie.genre }}</p>
+            <span class="card-title">{{ movies.title }}</span>
+            <p>Year: {{ movies.year }}</p>
+            <p>Actors: {{ movies.actors }}</p>
+            <p>Genre: {{ movies.genre }}</p>
         </div>
         </a>
     </div>
