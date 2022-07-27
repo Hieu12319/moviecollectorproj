@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=3&v*6_h8#qnin%_k+&23n5)(oo9!v-)4l1b*$#d%*3xb)b7v^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['moviecollect.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -138,4 +138,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #django app for heroku
 import django_on_heroku
-dango_on_heroku.settings(locals())
+django_on_heroku.settings(locals())
