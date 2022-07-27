@@ -17,7 +17,7 @@ BUCKET = 'moviecollect-hn-89'
 
 
 def home(request):
-    return HttpResponse('<h1> Hello World Welcome to My Movies APP </h1>')
+    return render(request, 'about.html')
 
 
 def about(request):
