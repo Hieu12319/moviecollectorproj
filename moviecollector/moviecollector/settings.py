@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'moviecollector.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'catcollector',
+        'NAME': 'moviecollector',
         'USER': 'postgres',
         'PASSWORD': 'Sharkbait7',
         # Empty for localhost through domain sockets or           '127.0.0.1'

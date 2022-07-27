@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<H1>Movie Details</H1>
+
+<div class="card">
+    <div class="card-content">
+        <span class="card-title">{{ Movie.title }}</span>
+        <p>year: {{Movie.year}}</p>
+        <p>genre: {{ Movie.genre }}</p>
+        <p>actors: {{ Movie.actors }}</p>
+    </div>
+</div>
+
+{% endblock %}

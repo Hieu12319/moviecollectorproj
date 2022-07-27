@@ -1,19 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 
 class Movie(models.Model):
-    def __init__(self, title, year, actors, genre):
-        self.title = title
-        self.year = year
-        self.actors = actors
-        self.genre = genre
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    year = models.IntegerField()
+    actors = models.CharField(max_length=500)
+    genre = models.TextField(max_length=100)
+    #user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-movies = [
-    Movie('The Replacements', '2000', 'Keanu Reeves', 'comedy'),
-    Movie('The Matrix', '1999', 'Laurence Fishborne, Keanu Reeves', 'Action, Sci Fi, Fantasy'),
-    Movie('Friday', '1995', 'Ice Cube, Chris Tucker, John Witherspoon', 'Comedy')
-]
+    def __str__(self):
+        return self.title
+    
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={"movie_id":self.id})
 
+    

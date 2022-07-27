@@ -3,14 +3,16 @@
 
 <h1>Movie List</h1>
 
-{% for movie in movies %} 
+{% for Movie in movies %} 
     <div class="card">
-        <div class="card-content">
-            <span class="card-title">{{ movies.title }}</span>
-            <p>Year: {{ movie.year }}</p>
-            <p>Actors: {{ movie.actors }}</p>
-            <p>Genre: {{ movie.genre }}</p>
+        <a href ="/movies/{{movies.id}}">
+        <div class="card-content"> 
+            <span class="card-title">{{ Movie.title }}</span>
+            <p>Year: {{ Movie.year }}</p>
+            <p>Actors: {{ Movie.actors }}</p>
+            <p>Genre: {{ Movie.genre }}</p>
         </div>
+        </a>
     </div>
 {% endfor %}
 {% endblock %}
