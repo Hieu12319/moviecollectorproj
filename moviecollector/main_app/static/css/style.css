@@ -2,14 +2,82 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    background-color: black;
+    background-color: rgb(141, 141, 141);
   }
   
-  main {
+main {
     flex: 1 0 auto;
   }
   
-  footer {
+footer {
     padding-top: 0;
     text-align: right;
   }
+
+ul {
+    border: 1px solid #8e3636;
+    background-color: #c0baba;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    padding: 4px;
+}
+  
+
+ul > li{
+    display: inline-block;
+    padding: 4px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.navbar {
+  background-color: #333333;
+  display: flex;
+  align-items: center;
+}
+
+.navbar a {
+  color: #110909;
+}
+
+.navbar ul {
+
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  align-items:center;
+}
+
+.navbar .brand {
+  /*Let's make the anchor display block.
+     This will ensure when we get the full width of the container.
+  */
+  display: block;
+  color: #e7e7e7;
+  padding: 24px;
+  font-size: 24px;
+}
+
+.navbar ul li a {
+  color: #e7e7e7;
+  padding: 24px;
+  display: block;
+}
+
+/* When a use hovers or focuses a link change the background */
+.navbar ul a:hover,
+.navbar ul a:focus {
+  background-color: #272727;
+}
+
+div.card-content {
+  background: rgb(163, 153, 153);
+  border-style: solid;
+  border-width: 4px 4px 4px 4px;
+  border-color: rgb(27, 107, 107);
+  border-radius: 0.3rem;
+}

@@ -13,6 +13,6 @@ urlpatterns = [
     path('movies/create/', views.MovieCreate.as_view(), name='movies_create'),
     path('movies/<int:pk>/update/', views.MovieUpdate.as_view(), name='movies_update'),
     path('movies/<int:pk>/delete/', views.MovieDelete.as_view(), name='movies_delete'),
-    path('accounts/signup/', main_app.signup, name='signup')
- 
+    path('movies/<int:movies_id>/add_photo/', views.add_photo, name='add_photo'),
+    path('accounts/signup/', main_app.signup, name='signup'),
 ]

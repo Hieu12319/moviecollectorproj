@@ -13,7 +13,7 @@ class Movie(models.Model):
     year = models.IntegerField()
     actors = models.CharField(max_length=500)
     genre = models.TextField(max_length=100)
-    #user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -31,3 +31,10 @@ class Ratings(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.get_rate_display()} on {self.thoughts}"
+
+class Photo(models.Model):
+    url = models.CharField(max_length=300)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for movies_id: {self.movies_id} @{self.url}"

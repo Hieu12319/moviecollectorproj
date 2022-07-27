@@ -3,53 +3,53 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
-from .models import Movie
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import RatingsForm
 
-#class Movie:
-#    def __init__(self, title, year, actors, genre):
-#        self.title = title
-#        self.year = year
-#        self.actors = actors
-#        self.genre = genre
+from .models import Movie, Ratings, Photo
+import uuid
+import boto3
 
- 
-#movies = [
-#   Movie('The Replacements', '2000', 'Keanu Reeves', 'comedy'),
-#    Movie('The Matrix', '1999', 'Laurence Fishborne, Keanu Reeves', 'Action, Sci Fi, Fantasy'),
-#    Movie('Friday', '1995', 'Ice Cube, Chris Tucker, John Witherspoon', 'Comedy')
-#]
-
-
-
+S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
+BUCKET = 'moviecollect-hn-89'
 
 
 def home(request):
-    return HttpResponse('<h1> Hello World </h1>')
+    return HttpResponse('<h1> Hello World Welcome to My Movies APP </h1>')
 
 
 def about(request):
     return render(request, 'about.html')
 
+
 def movies_index(request):
-    movies = Movie.objects.all()
+    movies = Movie.objects.filter(user=request.user)
     return render(request, 'movies/index.html', {'Movie': movies})
 
 
 def movies_detail(request, movies_id):
     movie = Movie.objects.get(id=movies_id)
-    return render(request, 'movies/detail.html', {'movies': movie})
+    ratings_form = RatingsForm()
+    return render(request, 'movies/detail.html', {'movies': movie, 'ratings_form': RatingsForm})
+    
+@login_required
+def add_photo(request, movies_id):
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            photo = Photo(url=url, movies_id=movies_id)
+            photo.save()
+        except:
+            print('An error occored while uploading file to S3')
+    return redirect('detail', movies_id=movies_id)
 
-class MovieUpdate(UpdateView):
-    model = Movie
-    fields = ['title', 'year', 'actors', 'genre']
 
-class MovieDelete(DeleteView):
-    model = Movie
-    success_url = '/movies/'
-
-
-
-class MovieCreate(CreateView):
+class MovieCreate(LoginRequiredMixin, CreateView):
     model = Movie
     fields = ['title', 'year', 'actors', 'genre']
     success_url = '/movies/'
@@ -58,16 +58,29 @@ class MovieCreate(CreateView):
         return super().form_valid(form)
 
 
+class MovieUpdate(UpdateView):
+    model = Movie
+    fields = ['title', 'year', 'actors', 'genre']
+
+
+class MovieDelete(DeleteView):
+    model = Movie
+    success_url = '/movies/'
+
+
+
+
+
 def signup(request):
+    error_message = ''
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
+            user = form.save()
             login(request, user)
-            return redirect('home')
+            return redirect('index')
     else:
-        form = UserCreationForm()
-    return render(request, 'registration/signup.html', {'form': form})
+        error_message = 'Invalid sign up - try again'
+    form = UserCreationForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'registration/signup.html', context)
