@@ -1,1 +1,1 @@
-WSGI_APPLICATION = 'moviecollector.wgsi.application'
+web: gunicorn <moviecollector>.wsgi
