@@ -10,6 +10,10 @@
         <p>genre: {{ movies.genre }}</p>
         <p>actors: {{ movies.actors }}</p>
     </div>
+    <div class="card-action">
+        <a href="{% url 'movies_update' movies.id %}">Edit</a>
+        <a href="{% url 'movies_delete' movies.id %}">Delete</a>
+      </div>
 </div>
 <div class="col s6">
     <table class="striped">

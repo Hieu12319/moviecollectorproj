@@ -19,7 +19,7 @@ class Movie(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse('detail', kwargs={"movie_id":self.id})
+        return reverse('detail', kwargs={"movies_id":self.id})
 
 class Ratings(models.Model):
     thoughts = models.CharField(max_length=500)

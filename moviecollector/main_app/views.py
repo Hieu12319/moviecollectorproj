@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from .models import Movie
 
@@ -38,6 +38,15 @@ def movies_index(request):
 def movies_detail(request, movies_id):
     movie = Movie.objects.get(id=movies_id)
     return render(request, 'movies/detail.html', {'movies': movie})
+
+class MovieUpdate(UpdateView):
+    model = Movie
+    fields = ['title', 'year', 'actors', 'genre']
+
+class MovieDelete(DeleteView):
+    model = Movie
+    success_url = '/movies/'
+
 
 
 class MovieCreate(CreateView):
