@@ -11,5 +11,19 @@
         <p>actors: {{ movies.actors }}</p>
     </div>
 </div>
-
+<div class="col s6">
+    <table class="striped">
+      <thead>
+        <tr><th>Thoughts</th><th>Ratings</th></tr>
+      </thead>
+      <tbody>
+        {% for ratings in movies.ratings_set.all %}
+          <tr>
+            <td>{{ratings.get_rate_display}}</td>
+            <td>{{ratings.thoughts}}</td>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
 {% endblock %}
