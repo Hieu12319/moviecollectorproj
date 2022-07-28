@@ -48,3 +48,6 @@ List of stories users should experience when using your application.
 | accounts/signup/ | POST | creates new user and returns to their movie list page| 
 
 ### SNIPPETS 
+![movie list](staticfiles/movielist.png))
+![signup](staticfiles/signup.png)
+![addmovie](staticfiles/addmovie.png)
